@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "SET Architecture"
+description = "A premium French digital service for homeowners planning new builds, extensions, renovations, and permits. Guides visitors through SET's seven-stage methodology, recommends a personalized roadmap, and helps them request support or book a consultation without requiring an account."
+version = "1.0.0"
+id = "artifacts/set-architecture"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20645
+
+[services.development]
+run = "pnpm --filter @workspace/set-architecture run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/set-architecture", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/set-architecture/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20645"
+BASE_PATH = "/"

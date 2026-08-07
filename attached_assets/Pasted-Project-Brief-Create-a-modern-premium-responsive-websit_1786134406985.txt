@@ -1,0 +1,240 @@
+Project Brief
+
+Create a modern, premium, responsive website for a French architectural agency called SET.
+
+The name SET has a double meaning:
+
+- In English, "set" means to establish, place, build, define, prepare or fix something.
+- It also refers to the French number 7, representing the seven key stages of an architectural project.
+
+The entire brand identity should revolve around these two meanings.
+
+Purpose
+
+The website is designed for private homeowners in France who need help with:
+
+- New house projects
+- Extensions
+- Renovations
+- Building permits (Permis de Construire)
+- Prior Declarations (Déclaration Préalable)
+- General architectural advice
+
+The objective is not simply to sell architectural services, but to guide visitors from their first idea to the completion of their project.
+
+The website must inspire confidence, professionalism, simplicity and transparency.
+
+Design
+
+Create a minimalist, elegant and premium design inspired by high-end architecture studios.
+
+Use:
+
+- generous white space
+- large typography
+- subtle animations
+- architectural photography
+- clean lines
+- soft neutral colours
+- excellent mobile experience
+
+The interface should feel calm and intuitive rather than overloaded.
+
+Homepage
+
+The homepage should immediately explain:
+
+"Your architectural project, supported from the first idea to the final realization."
+
+A clear CTA:
+
+"Start my project"
+
+Another CTA:
+
+"Discover the 7 stages"
+
+The 7-stage journey
+
+This is the central element of the website.
+
+Create an interactive horizontal timeline (or card slider) representing the seven stages.
+
+The visitor can drag or swipe through each stage.
+
+Each stage contains:
+
+- title
+- icon
+- short explanation
+- estimated duration
+- what the client receives
+
+After viewing all stages, the visitor can configure their own support.
+
+Example:
+
+"I only need stages 1 to 3"
+
+or
+
+"I only need stage 5"
+
+or
+
+"I want complete support from stage 1 to stage 7."
+
+The interface should visually highlight the selected stages.
+
+The estimated service adapts dynamically.
+
+Contact / Qualification Form
+
+Instead of a generic contact form, create a guided questionnaire.
+
+Questions include:
+
+- Name
+- First name
+- Email
+- Phone number
+- Municipality
+- Type of project
+- Estimated surface area
+- Estimated budget
+- Desired timeline
+- Current project stage
+- Which SET stages they want assistance with
+- Free description of the project
+- Ability to upload plans, sketches or photos
+
+At the end:
+
+"I would like to be contacted"
+
+Appointment Booking
+
+Allow visitors to book a consultation.
+
+Appointments are paid consultations.
+
+Display available time slots in a clean calendar interface.
+
+No online payment needs to be implemented yet, but the architecture should allow adding payment later.
+
+User Accounts
+
+Do not require visitors to create an account.
+
+The experience should remain simple.
+
+Only collect the information necessary to contact the client.
+
+Additional Pages
+
+- About SET
+- Services
+- The 7 Stages
+- Portfolio (placeholder for future projects)
+- FAQ
+- Contact
+- Legal notices
+- Privacy policy
+
+Future Scalability
+
+The project must be built so future features can easily be added:
+
+- client dashboard
+- payment
+- project tracking
+- document sharing
+- messaging
+- quotations
+- invoices
+
+Technical Requirements
+
+Responsive design.
+
+SEO optimized.
+
+Fast loading.
+
+Accessible.
+
+Modern code architecture.
+
+French language by default.
+
+UX Mission
+
+Do not simply build a website.
+
+Design an experience that naturally guides visitors from discovering SET to requesting support.
+
+The website should communicate trust, expertise and simplicity while making the seven-stage methodology the central element of the brand.
+
+
+
+AI Product Design Mission
+
+Do not create a traditional architectural agency website.
+
+Instead, design a professional digital platform that helps private homeowners understand, prepare and manage their architectural project.
+
+Think like a combination of:
+
+- UX/UI Designer
+- Product Designer
+- Software Architect
+- Customer Experience Expert
+- Marketing Strategist
+- Architect
+
+Your objective is to create the best possible customer journey.
+
+Challenge my ideas whenever you identify a better solution.
+
+Do not simply execute instructions. Improve them.
+
+If a feature can be redesigned to provide a better user experience, propose and implement the improved version.
+
+The platform should feel more like a modern digital service than a classic company website.
+
+Guide users naturally from:
+
+1. Discovering SET.
+2. Understanding the seven-step methodology.
+3. Identifying exactly what they need.
+4. Building a personalized support plan.
+5. Booking a consultation.
+6. Leaving with the feeling that SET is the obvious choice.
+
+Intelligent Project Configurator
+
+Instead of asking users to manually choose stages, create an intelligent project configurator.
+
+The configurator asks simple questions about the user's project (type of work, budget, objectives, planning status, existing documents, level of support needed, etc.).
+
+Based on the answers, the platform recommends which of the seven stages are necessary and explains why.
+
+Users can still modify the recommendation manually.
+
+Personalized Roadmap
+
+Once the questionnaire is complete, generate a visual roadmap showing:
+
+- the recommended stages,
+- their order,
+- expected deliverables,
+- estimated timeline,
+- and where the client currently stands.
+
+The roadmap should be visually appealing and easy to understand.
+
+Professional Feeling
+
+The platform should make visitors feel that they are using a premium architectural planning tool—not just browsing a website.
+
+Every interaction should build trust, reduce uncertainty and encourage users to contact SET.

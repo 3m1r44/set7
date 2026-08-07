@@ -6,6 +6,19 @@ import { ArrowDown, ArrowRight, ArrowUpRight, CalendarDays, Check, ChevronDown, 
 
 const queryClient = new QueryClient();
 
+const bookingDates = [
+  { label: 'Lun. 11', day: 'Lundi', isWeekend: false },
+  { label: 'Mar. 12', day: 'Mardi', isWeekend: false },
+  { label: 'Mer. 13', day: 'Mercredi', isWeekend: false },
+  { label: 'Jeu. 14', day: 'Jeudi', isWeekend: false },
+  { label: 'Ven. 15', day: 'Vendredi', isWeekend: false },
+  { label: 'Sam. 16', day: 'Samedi', isWeekend: true },
+  { label: 'Dim. 17', day: 'Dimanche', isWeekend: true },
+];
+
+const weekdaySlots = ['18:30', '19:00', '19:30', '20:00', '20:30'];
+const weekendSlots = ['09:00', '10:30', '12:00', '14:00', '15:30', '17:00', '18:30', '19:30'];
+
 function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [stage, setStage] = useState(0);
@@ -13,8 +26,8 @@ function App() {
   const [project, setProject] = useState('Extension');
   const [budget, setBudget] = useState('100 000 – 200 000 €');
   const [step, setStep] = useState(0);
-  const [date, setDate] = useState('Jeudi 14 mars');
-  const [slot, setSlot] = useState('10:30');
+  const [date, setDate] = useState('Jeu. 14');
+  const [slot, setSlot] = useState('18:30');
   const [faqOpen, setFaqOpen] = useState<number | null>(0);
   const [formSent, setFormSent] = useState(false);
   const [bookingSent, setBookingSent] = useState(false);
@@ -28,6 +41,8 @@ function App() {
   }, [selected]);
 
   const toggleStage = (index: number) => setSelected((items) => items.includes(index) ? items.filter((item) => item !== index) : [...items, index].sort());
+  const selectedBookingDate = bookingDates.find((item) => item.label === date) ?? bookingDates[3];
+  const availableSlots = selectedBookingDate.isWeekend ? weekendSlots : weekdaySlots;
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     setMobileOpen(false);
@@ -120,7 +135,7 @@ function App() {
 
             <section className="booking-section" id="booking">
               <div className="booking-copy"><div className="section-kicker">05 — Faire le point</div><h2>Un premier échange<br /><em>sans détour.</em></h2><p>45 minutes pour poser vos questions, vérifier la faisabilité et repartir avec des prochaines étapes concrètes.</p><div className="booking-note"><CalendarDays size={18} /><div><strong>Consultation projet</strong><span>45 min · 90 € TTC · Visioconférence</span></div></div></div>
-              <div className="booking-card">{!bookingSent ? <><div className="booking-card-header"><span>Choisissez votre créneau</span><span className="secure"><ShieldCheck size={13} /> Paiement après confirmation</span></div><div className="date-row">{['Jeu. 14', 'Ven. 15', 'Lun. 18', 'Mar. 19'].map((item, index) => <button className={date === item ? 'date selected' : 'date'} onClick={() => setDate(item)} key={item} data-testid={`button-date-${index}`}><small>{item.split(' ')[0]}</small><strong>{item.split(' ')[1]}</strong></button>)}</div><div className="slot-grid">{['09:00', '10:30', '14:00', '15:30', '17:00'].map((item) => <button className={slot === item ? 'slot selected' : 'slot'} onClick={() => setSlot(item)} key={item} data-testid={`button-slot-${item}`}>{item}</button>)}</div><button className="button button-dark full" onClick={() => setBookingSent(true)} data-testid="button-book-confirm">Réserver le {date} à {slot} <ArrowRight size={17} /></button></> : <div className="booking-success"><div className="success-icon"><Check /></div><h3>C’est noté.</h3><p>Votre demande pour le <strong>{date} à {slot}</strong> est bien enregistrée. Nous vous envoyons la confirmation par email.</p><button className="text-link" onClick={() => setBookingSent(false)} data-testid="button-book-edit">Choisir un autre créneau <ChevronRight size={16} /></button></div>}</div>
+              <div className="booking-card">{!bookingSent ? <><div className="booking-card-header"><div><span>Choisissez votre créneau</span><small className="booking-availability">En semaine dès 18h30 · Week-end toute la journée</small></div><span className="secure"><ShieldCheck size={13} /> Paiement après confirmation</span></div><div className="date-row">{bookingDates.map((item, index) => <button className={date === item.label ? 'date selected' : 'date'} onClick={() => { setDate(item.label); setSlot(item.isWeekend ? weekendSlots[0] : weekdaySlots[0]); }} key={item.label} data-testid={`button-date-${index}`}><small>{item.day}</small><strong>{item.label.split(' ')[1]}</strong></button>)}</div><div className="slot-grid">{availableSlots.map((item) => <button className={slot === item ? 'slot selected' : 'slot'} onClick={() => setSlot(item)} key={item} data-testid={`button-slot-${item}`}>{item}</button>)}</div><button className="button button-dark full" onClick={() => setBookingSent(true)} data-testid="button-book-confirm">Réserver le {date} à {slot} <ArrowRight size={17} /></button></> : <div className="booking-success"><div className="success-icon"><Check /></div><h3>C’est noté.</h3><p>Votre demande pour le <strong>{date} à {slot}</strong> est bien enregistrée. Nous vous envoyons la confirmation par email.</p><button className="text-link" onClick={() => setBookingSent(false)} data-testid="button-book-edit">Choisir un autre créneau <ChevronRight size={16} /></button></div>}</div>
             </section>
 
             <section className="contact-section" id="contact">

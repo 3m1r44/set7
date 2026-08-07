@@ -6,18 +6,43 @@ import { ArrowDown, ArrowRight, ArrowUpRight, CalendarDays, Check, ChevronDown, 
 
 const queryClient = new QueryClient();
 
-const bookingDates = [
-  { label: 'Lun. 11', day: 'Lundi', isWeekend: false },
-  { label: 'Mar. 12', day: 'Mardi', isWeekend: false },
-  { label: 'Mer. 13', day: 'Mercredi', isWeekend: false },
-  { label: 'Jeu. 14', day: 'Jeudi', isWeekend: false },
-  { label: 'Ven. 15', day: 'Vendredi', isWeekend: false },
-  { label: 'Sam. 16', day: 'Samedi', isWeekend: true },
-  { label: 'Dim. 17', day: 'Dimanche', isWeekend: true },
-];
-
 const weekdaySlots = ['18:30', '19:00', '19:30', '20:00', '20:30'];
 const weekendSlots = ['09:00', '10:30', '12:00', '14:00', '15:30', '17:00', '18:30', '19:30'];
+const weekdayLabels = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+const monthFormatter = new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric' });
+const dateFormatter = new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+
+const startOfToday = () => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return today;
+};
+
+const toDateKey = (date: Date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
+const fromDateKey = (key: string) => {
+  const [year, month, day] = key.split('-').map(Number);
+  return new Date(year, month - 1, day);
+};
+
+const monthKey = (date: Date) => `${date.getFullYear()}-${date.getMonth()}`;
+
+const calendarMonths = Array.from({ length: 3 }, (_, index) => {
+  const date = startOfToday();
+  date.setDate(1);
+  date.setMonth(date.getMonth() + index);
+  return date;
+});
+
+const firstAvailableDate = (() => {
+  const date = startOfToday();
+  return date;
+})();
 
 function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -26,8 +51,9 @@ function App() {
   const [project, setProject] = useState('Extension');
   const [budget, setBudget] = useState('100 000 – 200 000 €');
   const [step, setStep] = useState(0);
-  const [date, setDate] = useState('Jeu. 14');
+  const [date, setDate] = useState(() => toDateKey(firstAvailableDate));
   const [slot, setSlot] = useState('18:30');
+  const [calendarMonth, setCalendarMonth] = useState(monthKey(calendarMonths[0]));
   const [faqOpen, setFaqOpen] = useState<number | null>(0);
   const [formSent, setFormSent] = useState(false);
   const [bookingSent, setBookingSent] = useState(false);
@@ -41,8 +67,18 @@ function App() {
   }, [selected]);
 
   const toggleStage = (index: number) => setSelected((items) => items.includes(index) ? items.filter((item) => item !== index) : [...items, index].sort());
-  const selectedBookingDate = bookingDates.find((item) => item.label === date) ?? bookingDates[3];
-  const availableSlots = selectedBookingDate.isWeekend ? weekendSlots : weekdaySlots;
+  const selectedBookingDate = fromDateKey(date);
+  const isWeekend = selectedBookingDate.getDay() === 0 || selectedBookingDate.getDay() === 6;
+  const availableSlots = isWeekend ? weekendSlots : weekdaySlots;
+  const selectedDateLabel = dateFormatter.format(selectedBookingDate);
+  const activeMonth = calendarMonths.find((month) => monthKey(month) === calendarMonth) ?? calendarMonths[0];
+  const calendarStart = new Date(activeMonth.getFullYear(), activeMonth.getMonth(), 1);
+  const firstWeekdayOffset = (calendarStart.getDay() + 6) % 7;
+  const daysInMonth = new Date(activeMonth.getFullYear(), activeMonth.getMonth() + 1, 0).getDate();
+  const calendarCells = [
+    ...Array.from({ length: firstWeekdayOffset }, () => null),
+    ...Array.from({ length: daysInMonth }, (_, index) => new Date(activeMonth.getFullYear(), activeMonth.getMonth(), index + 1)),
+  ];
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     setMobileOpen(false);
@@ -135,7 +171,7 @@ function App() {
 
             <section className="booking-section" id="booking">
               <div className="booking-copy"><div className="section-kicker">05 — Faire le point</div><h2>Un premier échange<br /><em>sans détour.</em></h2><p>45 minutes pour poser vos questions, vérifier la faisabilité et repartir avec des prochaines étapes concrètes.</p><div className="booking-note"><CalendarDays size={18} /><div><strong>Consultation projet</strong><span>45 min · 90 € TTC · Visioconférence</span></div></div></div>
-              <div className="booking-card">{!bookingSent ? <><div className="booking-card-header"><div><span>Choisissez votre créneau</span><small className="booking-availability">En semaine dès 18h30 · Week-end toute la journée</small></div><span className="secure"><ShieldCheck size={13} /> Paiement après confirmation</span></div><div className="date-row">{bookingDates.map((item, index) => <button className={date === item.label ? 'date selected' : 'date'} onClick={() => { setDate(item.label); setSlot(item.isWeekend ? weekendSlots[0] : weekdaySlots[0]); }} key={item.label} data-testid={`button-date-${index}`}><small>{item.day}</small><strong>{item.label.split(' ')[1]}</strong></button>)}</div><div className="slot-grid">{availableSlots.map((item) => <button className={slot === item ? 'slot selected' : 'slot'} onClick={() => setSlot(item)} key={item} data-testid={`button-slot-${item}`}>{item}</button>)}</div><button className="button button-dark full" onClick={() => setBookingSent(true)} data-testid="button-book-confirm">Réserver le {date} à {slot} <ArrowRight size={17} /></button></> : <div className="booking-success"><div className="success-icon"><Check /></div><h3>C’est noté.</h3><p>Votre demande pour le <strong>{date} à {slot}</strong> est bien enregistrée. Nous vous envoyons la confirmation par email.</p><button className="text-link" onClick={() => setBookingSent(false)} data-testid="button-book-edit">Choisir un autre créneau <ChevronRight size={16} /></button></div>}</div>
+              <div className="booking-card">{!bookingSent ? <><div className="booking-card-header"><div><span>Choisissez votre créneau</span><small className="booking-availability">En semaine dès 18h30 · Week-end toute la journée</small></div><span className="secure"><ShieldCheck size={13} /> Paiement après confirmation</span></div><div className="calendar-months">{calendarMonths.map((month) => <button className={calendarMonth === monthKey(month) ? 'calendar-month selected' : 'calendar-month'} onClick={() => setCalendarMonth(monthKey(month))} key={monthKey(month)}>{monthFormatter.format(month)}</button>)}</div><div className="calendar-weekdays">{weekdayLabels.map((label) => <span key={label}>{label}</span>)}</div><div className="calendar-grid">{calendarCells.map((day, index) => { if (!day) return <span className="calendar-empty" key={`empty-${index}`} />; const dayKey = toDateKey(day); const isPast = day < startOfToday(); const isSelected = date === dayKey; return <button className={isSelected ? 'calendar-day selected' : 'calendar-day'} disabled={isPast} onClick={() => { setDate(dayKey); setSlot((day.getDay() === 0 || day.getDay() === 6) ? weekendSlots[0] : weekdaySlots[0]); }} key={dayKey} data-testid={`button-date-${dayKey}`}>{day.getDate()}</button>; })}</div><div className="selected-date-label">Créneaux disponibles pour <strong>{selectedDateLabel}</strong></div><div className="slot-grid">{availableSlots.map((item) => <button className={slot === item ? 'slot selected' : 'slot'} onClick={() => setSlot(item)} key={item} data-testid={`button-slot-${item}`}>{item}</button>)}</div><button className="button button-dark full" onClick={() => setBookingSent(true)} data-testid="button-book-confirm">Réserver le {selectedDateLabel} à {slot} <ArrowRight size={17} /></button></> : <div className="booking-success"><div className="success-icon"><Check /></div><h3>C’est noté.</h3><p>Votre demande pour le <strong>{selectedDateLabel} à {slot}</strong> est bien enregistrée. Nous vous envoyons la confirmation par email.</p><button className="text-link" onClick={() => setBookingSent(false)} data-testid="button-book-edit">Choisir un autre créneau <ChevronRight size={16} /></button></div>}</div>
             </section>
 
             <section className="contact-section" id="contact">

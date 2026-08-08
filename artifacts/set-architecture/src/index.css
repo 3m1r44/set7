@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
@@ -433,7 +433,7 @@
   }
 }
 
-/* SET — quiet confidence, monochrome with cobalt guidance */
+/* SET â€” quiet confidence, monochrome with cobalt guidance */
 :root { --ink: #18212d; --paper: #f7f8fb; --mint: #d8e4ff; --rust: #2457d6; --line: #d7dce5; --soft: #edf1f6; }
 html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--app-font-sans); }
@@ -442,7 +442,7 @@ button { cursor: pointer; }
 .set-app { overflow: hidden; background: var(--paper); }
 .set-nav { height: 78px; display: flex; align-items: center; justify-content: space-between; padding: 0 5vw; border-bottom: 1px solid var(--line); position: relative; z-index: 20; background: rgba(245,241,232,.94); backdrop-filter: blur(12px); }
 .set-logo { display: flex; gap: 9px; align-items: center; color: var(--ink); border: 0; background: none; font-weight: 800; letter-spacing: .2em; font-size: 15px; }
-.set-logo-mark { width: 25px; height: 25px; border: 1px solid currentColor; display: grid; place-items: center; font-family: var(--app-font-serif); font-style: italic; font-weight: 500; font-size: 17px; letter-spacing: 0; }
+.set-logo-mark { width: 25px; height: 25px; border: none; background: var(--primary); color: white; display: grid; place-items: center; font-family: var(--app-font-serif); font-style: italic; font-weight: 500; font-size: 17px; letter-spacing: 0; line-height: 1; box-sizing: border-box; }
 .set-nav-links { display: flex; gap: 30px; align-items: center; }
 .set-nav-links button, .footer-links button { border: 0; background: none; color: inherit; font-size: 12px; letter-spacing: .04em; }
 .set-nav-links button:hover, .footer-links button:hover { color: var(--rust); }
@@ -515,3 +515,35 @@ h1 em { color: var(--rust); }
   .calendar-weekdays, .calendar-grid { gap: 4px; }
   .calendar-day { font-size: 11px; }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.set-logo-mark
+
+
+
+
+
+.set-logo-mark { width:25px !important; height:25px !important; border:0 !important; background:#0066ff !important; color:#fff !important; display:grid !important; place-items:center !important; font-family:var(--app-font-serif) !important; font-style:italic !important; font-weight:500 !important; font-size:17px !important; line-height:1 !important; box-sizing:border-box !important; }
+
+.set-logo-mark { width:25px !important; height:25px !important; border:0 !important; background:#0066ff !important; color:#fff !important; display:inline-grid !important; place-items:center !important; font-family:var(--app-font-serif) !important; font-style:italic !important; font-weight:500 !important; font-size:17px !important; line-height:1 !important; box-sizing:border-box !important; margin-right:2px !important; vertical-align:middle !important; }
+
+.set-logo-mark { font-family: var(--app-font-sans) !important; font-style: normal !important; font-weight: 500 !important; font-size: 17px !important; line-height: 1 !important; display: inline-grid !important; place-items: center !important; }
+
+.set-logo { font-size: 17px !important; }

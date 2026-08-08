@@ -90,7 +90,7 @@ function App() {
         <div className="set-app">
           <header className="set-nav" data-testid="header-navigation">
             <button className="set-logo" onClick={() => scrollTo('top')} data-testid="button-logo">
-              <span className="set-logo-mark">S</span><span>SET</span>
+              <span className="set-logo-mark logo-seven">7</span><span>SET</span>
             </button>
             <nav className={mobileOpen ? 'set-nav-links open' : 'set-nav-links'} aria-label="Navigation principale">
               <button onClick={() => scrollTo('journey')} data-testid="link-stages">Les 7 étapes</button>
@@ -181,7 +181,7 @@ function App() {
 
             <section className="faq-section" id="faq"><div className="section-heading"><div><div className="section-kicker">07 — Les questions que l’on se pose</div><h2>Clair dès<br /><em>le départ.</em></h2></div><p>Vous ne trouvez pas votre réponse ? <button className="inline-button" onClick={() => scrollTo('contact')} data-testid="button-faq-contact">Écrivez-nous.</button></p></div><div className="faq-list">{faqs.map((item, index) => <div className={faqOpen === index ? 'faq-item open' : 'faq-item'} key={item.question}><button onClick={() => setFaqOpen(faqOpen === index ? null : index)} data-testid={`button-faq-${index}`}><span>{item.question}</span><ChevronDown size={18} /></button>{faqOpen === index && <p>{item.answer}</p>}</div>)}</div></section>
           </main>
-          <footer className="set-footer"><div className="footer-brand"><button className="set-logo inverse" onClick={() => scrollTo('top')} data-testid="button-footer-logo"><span className="set-logo-mark">S</span><span>SET</span></button><p>Établir les bons repères<br />pour mieux construire.</p></div><div className="footer-links"><div><span>Explorer</span><button onClick={() => scrollTo('journey')} data-testid="footer-link-stages">Les 7 étapes</button><button onClick={() => scrollTo('method')} data-testid="footer-link-method">La méthode</button><button onClick={() => scrollTo('faq')} data-testid="footer-link-faq">FAQ</button></div><div><span>Parlons-nous</span><button onClick={() => scrollTo('contact')} data-testid="footer-link-contact">Nous contacter</button><button onClick={() => scrollTo('booking')} data-testid="footer-link-booking">Réserver une consultation</button></div></div><div className="footer-bottom"><span>© 2026 SET7 — Tous droits réservés.</span><span>Paris · Bordeaux · Partout en France</span><span>Mentions légales · Confidentialité</span></div></footer>
+          <footer className="set-footer"><div className="footer-brand"><button className="set-logo inverse" onClick={() => scrollTo('top')} data-testid="button-footer-logo"><span className="set-logo-mark logo-seven">7</span><span>SET</span></button><p>Établir les bons repères<br />pour mieux construire.</p></div><div className="footer-links"><div><span>Explorer</span><button onClick={() => scrollTo('journey')} data-testid="footer-link-stages">Les 7 étapes</button><button onClick={() => scrollTo('method')} data-testid="footer-link-method">La méthode</button><button onClick={() => scrollTo('faq')} data-testid="footer-link-faq">FAQ</button></div><div><span>Parlons-nous</span><button onClick={() => scrollTo('contact')} data-testid="footer-link-contact">Nous contacter</button><button onClick={() => scrollTo('booking')} data-testid="footer-link-booking">Réserver une consultation</button></div></div><div className="footer-bottom"><span>© 2026 SET7 — Tous droits réservés.</span><span>Paris · Bordeaux · Partout en France</span><span>Mentions légales · Confidentialité</span></div></footer>
         </div>
         <Toaster />
       </TooltipProvider>
@@ -207,3 +207,5 @@ const faqs = [
   { question: 'Puis-je ne choisir qu’une seule étape ?', answer: 'Bien sûr. Vous gardez la main sur votre accompagnement et pouvez sélectionner uniquement les étapes dont vous avez besoin.' },
   { question: 'La consultation à 90 € est-elle déduite ?', answer: 'La consultation est un premier temps de travail à part entière. Elle peut ensuite ouvrir sur une mission complète, selon vos besoins.' },
 ];
+
+
